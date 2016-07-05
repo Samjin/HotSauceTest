@@ -41,19 +41,19 @@ img {
 }
 .clearfix:before,
 .clearfix:after,
-#Application:before,
-#Application:after,
+#application:before,
+#application:after,
 #product-frame:before,
 #product-frame:after {
   content: " ";
   display: table;
 }
 .clearfix:after,
-#Application:after,
+#application:after,
 #product-frame:after {
   clear: both;
 }
-#Application {
+#application {
   max-width: 960px;
   margin: auto;
 }
@@ -133,3 +133,5 @@ img {
 #product-frame .product-desciption {
   word-wrap: break-word;
 }
+
+/*# sourceMappingURL=hotsauce.css.map */

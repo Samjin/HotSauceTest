@@ -114,7 +114,7 @@
         componentDidMount: function () {
           var self = this;
           var request = new XMLHttpRequest();
-          request.open('GET', 'hotsauces.json', true);
+          request.open('GET', 'https://raw.githubusercontent.com/Samjin/HotSauceTest/master/hotsauces.json', true);
 
           request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
@@ -148,9 +148,7 @@
         },
 
         updateIndex: function (index) {
-          this.setState({ clickedElemIndex: index }, function () {
-            console.log(this.state.clickedElemIndex);
-          })
+          this.setState({ clickedElemIndex: index });
         },
 
         passStateIndex: function () {
