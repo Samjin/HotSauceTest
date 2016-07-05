@@ -1,6 +1,135 @@
-/*
- Please feel dree to delete the below style, it is only for example. You will place all your styles in this css file.
-*/
-p  {
-  color: #ff0000;
+* {
+  box-sizing: border-box;
+}
+body {
+  background: #eee;
+  font-family: 'Oswald', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 56px;
+  font-weight: 300;
+  color: #b91f24;
+}
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 400;
+}
+p {
+  font-family: 'Lato', sans-serif;
+  color: #555;
+  margin-top: 0;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  margin: auto;
+}
+.pseudo-align:before,
+.list-item .list-img-container:before,
+#product-frame .product-img:before {
+  content: '';
+  display: inline-block;
+  margin: 0;
+  height: 100%;
+  vertical-align: middle;
+}
+.clearfix:before,
+.clearfix:after,
+#Application:before,
+#Application:after,
+#product-frame:before,
+#product-frame:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after,
+#Application:after,
+#product-frame:after {
+  clear: both;
+}
+#Application {
+  max-width: 960px;
+  margin: auto;
+}
+.list-item {
+  cursor: pointer;
+  float: left;
+  vertical-align: top;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 220px;
+  background: #fff;
+}
+.list-item .list-img-container {
+  margin: 0;
+  padding: 20px;
+  height: 260px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.list-item .list-img {
+  vertical-align: middle;
+}
+.list-item .list-subtitle-container {
+  padding: 10px;
+  height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list-item .list-subtitle-container h2 {
+  color: #333;
+  font-weight: 400;
+  margin: 5px auto;
+}
+.list-item .list-subtitle-container p {
+  color: #555;
+}
+#product-frame {
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+}
+#product-frame .col-6,
+#product-frame .col-4 {
+  float: left;
+}
+#product-frame .col-6 {
+  width: 70%;
+  border-right: 1px solid #ddd;
+}
+#product-frame .col-4 {
+  width: 30%;
+  padding: 20px;
+}
+#product-frame .product-title {
+  background: #f2f2f2;
+  padding: 40px;
+}
+#product-frame .product-title h1 {
+  margin: 0;
+}
+#product-frame .product-title p {
+  color: #555;
+  margin: 0;
+  cursor: pointer;
+}
+#product-frame .product-title p:hover {
+  color: #1582da;
+}
+#product-frame .product-img {
+  background: #fff;
+  text-align: center;
+}
+#product-frame .product-img img {
+  vertical-align: middle;
+  display: inline-block;
+  min-height: 50%;
+}
+#product-frame .product-desciption {
+  word-wrap: break-word;
 }

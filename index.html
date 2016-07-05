@@ -4,37 +4,206 @@
     <meta charset="utf-8">
     <title>Hot Sauce List</title>
     <link rel="stylesheet" href="css/hotsauce.css" />
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
    
   </head>
   <body>
 
-    <!-- Application div -->
     <div id="application"></div>
 
     <script src="https://fb.me/react-15.1.0.min.js"></script>
     <script src="https://fb.me/react-dom-15.1.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
     <script type="text/babel">
-      /*
-        We have provided you with sample application code to get you running. We encourage you to change this in any way you would like in order to complete the test. Any additional JavaScript can be placed in here.
 
-        We do recommend you write all the code here because of cross orgigin scripting issues. If you do want to place this code in a seperate file, it will require you use a server environment and access this page via http://localhost/HostSauceTest/ or something similar.
-      */
+      var ProductFrame = React.createClass({
 
-      var Application = React.createClass({
         render: function() {
+          var props = this.props;
+          var i = props.passStateIndex();
+
           return (
-            <p>
-              Hello applicant!
-            </p>
-          );
+            <div id="product-frame">
+              <div className="col-6">
+                <div className="product-title">
+                  <p onClick={ props.handleClick } >&lt; Back to Hot Sauce list </p>
+                  <h1>{ props.filterData('title')[i] }</h1>
+                </div>
+                <div className="product-img">
+                  <img src={ props.filterData('imageURL')[i] } />
+                </div>
+              </div>
+              <div className="col-4">
+                <p className="product-desciption"> { props.filterData('description')[i] } </p>
+              </div>
+            </div>
+          )
         }
       });
 
-      ReactDOM.render(
-        <Application />,
-        document.getElementById('application')
-      );
+
+
+      var ListItem = React.createClass({
+
+        localClick: function(e) {
+
+          var imgUrl = e.target.getAttribute('src');
+
+          var list = this.props.passStateList(),
+            len = list.length,
+            index;
+
+          for (var i = 0; i < len; i++) {
+            if (list[i].imageURL === imgUrl) {
+              index = i;
+              break;
+            }
+          }
+          this.setState({selectedIndex: index}, function () {
+            this.props.updateIndex(index);
+            this.props.handleClick();
+          });
+        },
+
+        render: function () {
+          var len = this.props.passStateList().length,
+              i = 0,
+              listArray = [],
+              props = this.props;
+
+          for (i = 0; i < len; i++) {
+            listArray.push(
+              <div key={i} className="list-item" onClick={ this.localClick } >
+                  <div className="list-img-container">
+                    <img className="list-img" src={ props.filterData('imageURL')[i] } />
+                  </div>
+                  <div className="list-subtitle-container">
+                    <h2> { props.filterData('title')[i] } </h2>
+                    <p className="list-subtitle"> { props.filterData('subtitle')[i] } </p>
+                  </div>
+              </div>
+            );
+          }
+          return (
+            <div>
+              <h1>Hot Sauce</h1>
+              { listArray }
+            </div>
+          )
+        }
+
+      });
+
+
+
+      var Application = React.createClass({
+
+        getInitialState: function() {
+          return {
+            list: [],
+            route: 'ListItem',
+            clickedElemIndex: null
+          }
+        },
+
+        componentWillMount: function() {
+          this.jxhr = null;
+        },
+
+        componentDidMount: function () {
+          var self = this;
+          var request = new XMLHttpRequest();
+          request.open('GET', 'hotsauces.json', true);
+
+          request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+              var data = JSON.parse(request.responseText);
+              self.setState({ list: data.list });
+            } else {
+              console.log('Server error');
+            }
+          };
+
+          request.onerror = function() {
+            console.log('conenction error');
+          };
+
+          request.send();
+        },
+
+        filterData: function (name) {
+          var list = this.state.list;
+          var values = [];
+
+          for (var i = 0; i < list.length; i++) {
+            values.push( list[i][name] );
+          }
+
+          return values;
+        },
+
+        passStateList: function() {
+          return this.state.list;
+        },
+
+        updateIndex: function (index) {
+          this.setState({ clickedElemIndex: index }, function () {
+            console.log(this.state.clickedElemIndex);
+          })
+        },
+
+        passStateIndex: function () {
+          return this.state.clickedElemIndex;
+        },
+
+        handleClick: function () {
+          
+          if (this.state.route === 'ListItem') {
+            this.setState({
+              route: 'ProductFrame'
+            });
+          } else {
+            this.setState({route: 'ListItem'});
+          }
+          render();
+        },
+
+        render: function() {
+          var Child;
+
+          if (this.state.route === 'ListItem') {
+            Child = <ListItem 
+                filterData = { this.filterData } 
+                passStateList = { this.passStateList }
+                handleClick = { this.handleClick } 
+                updateIndex = { this.updateIndex } 
+            />
+          } else {
+            Child = <ProductFrame 
+                filterData = { this.filterData } 
+                handleClick = { this.handleClick } 
+                passStateIndex = { this.passStateIndex }
+            />
+          }
+
+          return (
+            <div>
+              { Child }
+            </div>
+          );
+        }
+
+      });
+
+      // Route to correct context
+      function render() {
+        ReactDOM.render( <Application />, document.getElementById('application') );
+      }
+
+      render();
+
+
     </script>
   </body>
 </html>

@@ -1,0 +1,163 @@
+// Use chrome to open html since basic styles are not normalized for all browsers.
+
+@red: #b91f24;
+
+
+
+* { box-sizing: border-box; }
+
+body {
+    background: #eee;
+    font-family: 'Oswald', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 56px;
+    font-weight: 300;
+    color: @red;
+}
+
+h2, h3, h4, h5 {
+    font-weight: 400;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    color: #555;
+    margin-top: 0;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    margin: auto;
+}
+
+
+.pseudo-align {
+    &:before {
+        content: '';
+        display: inline-block;
+        margin: 0;
+        height: 100%;
+        vertical-align: middle;
+    }
+}
+
+
+.clearfix {
+    &:before, 
+    &:after { 
+        content: " "; 
+        display: table; 
+    }
+    &:after { 
+        clear: both; 
+    }
+}
+
+
+
+#Application {
+    max-width: 960px;
+    margin: auto;
+    &:extend(.clearfix all);
+}
+
+
+.list-item {
+    cursor: pointer;
+    float: left;
+    vertical-align: top;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    
+    width: 220px;
+    background: #fff;
+
+    .list-img-container {
+        margin: 0;
+        padding: 20px;
+        height: 260px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+
+        &:extend(.pseudo-align all);
+    }
+
+    .list-img {
+        vertical-align: middle;
+    }
+
+    .list-subtitle-container {
+        padding: 10px;
+        height: 150px;
+        overflow: hidden; 
+        text-overflow: ellipsis;
+
+        h2 { 
+            color: #333;
+            font-weight: 400;
+            margin: 5px auto;
+        }
+        p {
+            color: #555;
+        }
+    }
+}
+
+
+#product-frame {
+    background: #f2f2f2;
+    border: 1px solid #ddd;
+    &:extend(.clearfix all);
+    
+    .col-6, .col-4 {
+        float: left;
+    }
+    .col-6 {
+        width: 70%;
+        border-right: 1px solid #ddd;
+    }
+    .col-4 {
+        width: 30%;
+        padding: 20px;
+    }
+
+    .product-title {
+        background: #f2f2f2;
+        padding: 40px;
+        h1 {
+            margin: 0;
+        }
+        p {
+            color: #555;
+            margin: 0;
+            cursor: pointer;
+            &:hover {
+                color: #1582da;
+            }
+        }
+    }
+
+    .product-img {
+        background: #fff;
+        text-align: center;
+        
+        &:extend(.pseudo-align all);
+        img {
+            vertical-align: middle;
+            display: inline-block;
+            min-height: 50%;
+        }
+    }
+
+    .product-desciption {
+        word-wrap: break-word;
+    }
+
+}
